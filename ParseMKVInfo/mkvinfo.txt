@@ -1,0 +1,158 @@
+﻿+ EBML head
+|+ EBML version: 1
+|+ EBML read version: 1
+|+ EBML maximum ID length: 4
+|+ EBML maximum size length: 8
+|+ Doc type: matroska
+|+ Doc type version: 2
+|+ Doc type read version: 2
++ Segment, size 1351953370
+|+ Seek head (subentries will be skipped)
+|+ EbmlVoid (size: 3996)
+|+ Segment information
+| + Timecode scale: 1000000
+| + Muxing application: libebml v0.8.0 + libmatroska v0.9.0
+| + Writing application: mkvmerge v3.4.0 ('Rapunzel') gebaut am May 15 2010 05:00:31
+| + Duration: 1338.004s (00:22:18.004)
+| + Date: Sun Dec 18 02:34:06 2011 UTC
+| + Title: Dennou Coil 03
+| + Segment UID: 0xa4 0x59 0x18 0x24 0x41 0x7d 0x25 0x16 0xab 0x5a 0xb4 0x3b 0xe9 0x9b 0xd9 0xd2
+|+ Segment tracks
+| + A track
+|  + Track number: 1 (track ID for mkvmerge & mkvextract: 0)
+|  + Track UID: 2579676306
+|  + Track type: video
+|  + Enabled: 1
+|  + Default flag: 1
+|  + Forced flag: 0
+|  + Lacing flag: 0
+|  + MinCache: 1
+|  + Timecode scale: 1
+|  + Max BlockAddition ID: 0
+|  + Codec ID: V_MPEG4/ISO/AVC
+|  + Codec decode all: 1
+|  + CodecPrivate, length 44 (h.264 profile: High 10 @L5.0)
+|  + Default duration: 41.708ms (23.976 frames/fields per second for a video track)
+|  + Language: jpn
+|  + Name: Dennou Coil 03
+|  + Video track
+|   + Pixel width: 1280
+|   + Pixel height: 720
+|   + Interlaced: 0
+|   + Display width: 1280
+|   + Display height: 720
+| + A track
+|  + Track number: 2 (track ID for mkvmerge & mkvextract: 1)
+|  + Track UID: 1567136003
+|  + Track type: audio
+|  + Enabled: 1
+|  + Default flag: 1
+|  + Forced flag: 0
+|  + Lacing flag: 1
+|  + MinCache: 0
+|  + Timecode scale: 1
+|  + Max BlockAddition ID: 0
+|  + Codec ID: A_FLAC
+|  + Codec decode all: 1
+|  + CodecPrivate, length 154
+|  + Default duration: 85.333ms (11.719 frames/fields per second for a video track)
+|  + Language: jpn
+|  + Name: 5.1 FLAC
+|  + Audio track
+|   + Sampling frequency: 48000
+|   + Channels: 6
+|   + Bit depth: 24
+| + A track
+|  + Track number: 3 (track ID for mkvmerge & mkvextract: 2)
+|  + Track UID: 1376675698
+|  + Track type: subtitles
+|  + Enabled: 1
+|  + Default flag: 1
+|  + Forced flag: 0
+|  + Lacing flag: 0
+|  + MinCache: 0
+|  + Timecode scale: 1
+|  + Max BlockAddition ID: 0
+|  + Codec ID: S_TEXT/ASS
+|  + Codec decode all: 1
+|  + CodecPrivate, length 2383
+|  + Language: eng
+|  + Name: English
+|+ EbmlVoid (size: 1024)
+|+ Attachments
+| + Attached
+|  + File name: calibri.ttf
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 811052
+|  + File UID: 578431055
+| + Attached
+|  + File name: Conformity Regular.ttf
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 57576
+|  + File UID: 1732422584
+| + Attached
+|  + File name: Cyberotica-Bold.ttf
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 44288
+|  + File UID: 2154816942
+| + Attached
+|  + File name: KozGoPro-Bold.ttf
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 4288364
+|  + File UID: 1619673177
+| + Attached
+|  + File name: LEXIA___.ttf
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 87216
+|  + File UID: 871921632
+| + Attached
+|  + File name: OCRAEXT.TTF
+|  + Mime type: application/x-truetype-font
+|  + File data, size: 55400
+|  + File UID: 4097145747
+|+ Chapters
+| + EditionEntry
+|  + EditionFlagOrdered: 1
+|  + EditionFlagHidden: 0
+|  + EditionFlagDefault: 1
+|  + EditionUID: 2906622092
+|  + ChapterAtom
+|   + ChapterUID: 3143058098
+|   + ChapterTimeStart: 00:00:00.000000000
+|   + ChapterTimeEnd: 00:01:22.040000000
+|   + ChapterFlagHidden: 0
+|   + ChapterFlagEnabled: 1
+|   + ChapterSegmentUID: length 16, data: 0x8a 0x5e 0xd6 0x44 0x05 0x62 0x58 0x3b 0xfb 0xc1...
+|   + ChapterDisplay
+|    + ChapterString: Opening
+|    + ChapterLanguage: eng
+|  + ChapterAtom
+|   + ChapterUID: 3143058097
+|   + ChapterTimeStart: 00:00:00.000000000
+|   + ChapterTimeEnd: 00:22:02.947000000
+|   + ChapterFlagHidden: 0
+|   + ChapterFlagEnabled: 1
+|   + ChapterDisplay
+|    + ChapterString: Episode
+|    + ChapterLanguage: eng
+|  + ChapterAtom
+|   + ChapterUID: 3143058096
+|   + ChapterTimeStart: 00:00:00.000000000
+|   + ChapterTimeEnd: 00:01:20.038000000
+|   + ChapterFlagHidden: 0
+|   + ChapterFlagEnabled: 1
+|   + ChapterSegmentUID: length 16, data: 0xe0 0x5f 0x3a 0x06 0x2b 0xa7 0x63 0xc1 0x54 0x9b...
+|   + ChapterDisplay
+|    + ChapterString: Ending
+|    + ChapterLanguage: eng
+|  + ChapterAtom
+|   + ChapterUID: 3143058095
+|   + ChapterTimeStart: 00:22:02.979000000
+|   + ChapterTimeEnd: 00:22:17.962000000
+|   + ChapterFlagHidden: 0
+|   + ChapterFlagEnabled: 1
+|   + ChapterDisplay
+|    + ChapterString: Preview
+|    + ChapterLanguage: eng
+|+ EbmlVoid (size: 101)
+|+ Cluster

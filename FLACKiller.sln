@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseMKVInfo", "ParseMKVInfo\ParseMKVInfo.csproj", "{75231162-4F41-4256-92EC-B997AAFD2C55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranscodeFLACtoAAC", "TranscodeFLACToAAC\TranscodeFLACtoAAC.csproj", "{FECC6EC5-B9C4-4341-AD90-167968EE3162}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKVInfoParser", "MKVInfoParser\MKVInfoParser.csproj", "{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Debug|x86.ActiveCfg = Debug|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Debug|x86.Build.0 = Debug|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Release|Any CPU.ActiveCfg = Release|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Release|Mixed Platforms.Build.0 = Release|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Release|x86.ActiveCfg = Release|x86
+		{75231162-4F41-4256-92EC-B997AAFD2C55}.Release|x86.Build.0 = Release|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Debug|x86.ActiveCfg = Debug|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Debug|x86.Build.0 = Debug|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Release|Any CPU.ActiveCfg = Release|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Release|Mixed Platforms.Build.0 = Release|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Release|x86.ActiveCfg = Release|x86
+		{FECC6EC5-B9C4-4341-AD90-167968EE3162}.Release|x86.Build.0 = Release|x86
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
