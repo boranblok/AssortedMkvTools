@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranscodeFLACtoAAC", "Trans
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKVInfoParser", "MKVInfoParser\MKVInfoParser.csproj", "{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution files", "{46EB5FA1-4FB9-4D10-9EF5-1377E8644295}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{6EAE0D3B-F23D-4865-9BED-9138D5C37669}"
+	ProjectSection(SolutionItems) = preProject
+		Releases\v0.0.0.1.zip = Releases\v0.0.0.1.zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
