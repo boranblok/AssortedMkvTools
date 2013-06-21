@@ -51,6 +51,15 @@ I use visual studio 2010, but any C# 4.0 compiler will do, no external libraries
 What do you intend to improve
 -----------------------------
 
-Cleanup mainly, right now this script is a bit of a mess and still does not give a 100% correct output. (mainly chapter issues)
+Cleanup mainly, right now this script is a bit of a mess and still does not give a 100% correct output.
 I need to test much more with exotic situations (forced tracks etc)
 I would also like to get all console output streamed to the application console, but I am too stuipid ATM to figure this out and I settled for the error output for now.
+
+
+Known weak points/possible improvements later
+---------------------------------------------
+
+due to the taken path (FLAC -> WAV/PCM -> AAC) a lot of I/O is done this is unavoidable with the current tools available.
+PopCorn is faster because eac3to does an in memory transcode from FLAC to AC3 which skips a lot of disk operations.
+
+For best TEMP should be placed on a ramdisk.
