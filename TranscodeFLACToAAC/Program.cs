@@ -318,6 +318,9 @@ namespace TranscodeFLACtoAAC
                         mkvMergeParams.Append(" --default-track 0:no");
                     if(track.Forced)
                         mkvMergeParams.Append(" --forced-track 0:yes");
+                    //Ensure we only grab audio from this file
+                    mkvMergeParams.Append(" --no-video --no-subtitles --no-buttons --no-track-tags");
+                    mkvMergeParams.Append(" --no-chapters --no-attachments --no-global-tags");
                     mkvMergeParams.AppendFormat(" --audio-tracks 0 \"{0}\"", track.ExternalFileRef.FullName);
                 }
             }
