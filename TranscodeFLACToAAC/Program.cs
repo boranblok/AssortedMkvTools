@@ -112,6 +112,8 @@ namespace TranscodeFLACtoAAC
                 FileInfo mkvInfoFile =
                     new FileInfo(tempFolder.FullName + Path.DirectorySeparatorChar + mkvFile.Name + ".info");
                 String mkvInfoParameters = string.Format(mkvInfoBaseParameters, mkvFile.FullName, mkvInfoFile.FullName);
+                Console.WriteLine("mkvInfo Command:");
+                Console.WriteLine(pathToMkvInfo + " " + mkvInfoParameters);
 
                 Process mkvInfoProcess = StartExternalProcess(pathToMkvInfo, mkvInfoParameters);
                 Console.WriteLine(mkvInfoProcess.StandardError.ReadToEnd());
@@ -153,10 +155,15 @@ namespace TranscodeFLACtoAAC
             {
                 if (track.Codec == flacCodecID)
                 {
+                    Console.WriteLine("Extracting FLAC streams {0}(id:{1}) from {2}",
+                        track.Name, track.TrackNumber, mkvFile.VideoFile.FullName);
                     FileInfo flacFile = new FileInfo(tempFolder.FullName + Path.DirectorySeparatorChar + 
                         mkvFile.VideoFile.Name + '.' + track.MkvToolsTrackNumber + ".flac");
                     String mkvExtractParameters = String.Format(mkvExtractBaseParameters, 
                         mkvFile.VideoFile.FullName, flacFile.FullName, track.MkvToolsTrackNumber);
+
+                    Console.WriteLine("mkvExtract Command:");
+                    Console.WriteLine(pathToMkvExtract + " " + mkvExtractParameters);
 
                     Process mkvExtractProcess = StartExternalProcess(pathToMkvExtract, mkvExtractParameters);
                     Console.WriteLine(mkvExtractProcess.StandardError.ReadToEnd());
@@ -187,8 +194,11 @@ namespace TranscodeFLACtoAAC
             FileInfo targetFile =
                 new FileInfo(flacFile.FullName.Substring(0, flacFile.FullName.Length - flacFile.Extension.Length) + ".wav");
             //No need to use tempFolder here flacFile is already in the tempFolder.
+            Console.WriteLine("Decoding {0} to WAV/PCM {1}", flacFile.FullName, targetFile.FullName);            
 
             String flacParameters = String.Format(flacBaseParameters, flacFile.FullName, targetFile.FullName);
+            Console.WriteLine("flac Command:");
+            Console.WriteLine(pathToFlacTool + " " + flacParameters);
 
             Process flacDecodeProcess = StartExternalProcess(pathToFlacTool, flacParameters);
             Console.WriteLine(flacDecodeProcess.StandardError.ReadToEnd());
@@ -219,7 +229,11 @@ namespace TranscodeFLACtoAAC
             FileInfo targetFile =
                 new FileInfo(pcmFile.FullName.Substring(0, pcmFile.FullName.Length - pcmFile.Extension.Length) + ".mp4");
             //No need to use tempFolder here pcmFile is already in the tempFolder.
+            Console.WriteLine("Encoding {0} to AAC {1}", pcmFile.FullName, targetFile.FullName);
+
             String neroAacEncParameters = String.Format(neroAacEncBaseParameters, pcmFile.FullName, targetFile.FullName);
+            Console.WriteLine("NeroAacEncode Command:");
+            Console.WriteLine(pathToNeroAacEnc + " " + neroAacEncParameters);
 
             Process aacEncode = StartExternalProcess(pathToNeroAacEnc, neroAacEncParameters);
             Console.WriteLine(aacEncode.StandardError.ReadToEnd());
@@ -249,12 +263,10 @@ namespace TranscodeFLACtoAAC
         private static void RemuxFile(VideoFileInfo mkvFile, DirectoryInfo targetFolder)
         {
             FileInfo target = new FileInfo(targetFolder.FullName + Path.DirectorySeparatorChar + mkvFile.VideoFile.Name);
-            if (target.Exists)
-            {
-                Console.WriteLine("WARNING: The target file {0} already exists, skipping.", target.FullName);
-                return;
-            }
+            Console.WriteLine("Remuxing {0} to {1}", mkvFile.VideoFile.FullName, target.FullName);
             String mkvMergeParams = PrepareMkvMergeParameters(mkvFile, target);
+            Console.WriteLine("MkvMerge Command:");
+            Console.WriteLine(pathToMkvMerge + " " + mkvMergeParams);
  
             Process mkvMergeProcess = StartExternalProcess(pathToMkvMerge, mkvMergeParams);
             Console.WriteLine(mkvMergeProcess.StandardError.ReadToEnd());

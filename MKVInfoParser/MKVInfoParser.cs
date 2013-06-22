@@ -4,7 +4,10 @@ using System.IO;
 
 namespace MKVInfoParser
 {
+    //This could probably be done in fewer lines with regex, but then it wouldnt be readable.
     //Generation statement: mkvinfo <MKVFILE> --ui-language en --output-charset UTF-8 -r <INFOFILE>
+    //ATM I assume the mkvinfo output format does not change, 
+    //this is probably shit waiting to happen, but I'll generalize this a bit later.
     public class MKVInfoProcessor
     {
         private readonly static String segmentUid = "| + Segment UID: ";
@@ -58,7 +61,7 @@ namespace MKVInfoParser
         {
             Int32 indexOfPlus = line.IndexOf('+');
             Int32 indexOfColon = line.IndexOf(':');
-            if (indexOfPlus > -1 && indexOfColon > -1 && line.Length > indexOfColon + 2)
+            if (indexOfPlus > -1 && indexOfColon > indexOfPlus && line.Length > indexOfColon + 2)
             {
                 String key = line.Substring(indexOfPlus + 2, indexOfColon - (indexOfPlus + 2));
                 String content = line.Substring(indexOfColon + 2);
