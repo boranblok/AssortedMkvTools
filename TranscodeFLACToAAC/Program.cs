@@ -323,8 +323,12 @@ namespace TranscodeFLACtoAAC
                 if (track.TrackType == TrackType.Audio && track.Codec == flacCodecID)
                 {
                     String reworkedTrackName = ReplaceFlacIndicator(track.Name);
-                    mkvMergeParams.AppendFormat(" --track-name \"0:{0}\"", reworkedTrackName);
-                    mkvMergeParams.AppendFormat(" --language 0:{0}", track.Language);
+                    if(!String.IsNullOrWhiteSpace(reworkedTrackName))
+                        mkvMergeParams.AppendFormat(" --track-name \"0:{0}\"", reworkedTrackName);
+                    if (String.IsNullOrWhiteSpace(track.Language))  //eng is the default track language, this is sometimes ommited in the source files resulting in an empty language code.
+                        mkvMergeParams.AppendFormat(" --language 0:eng");
+                    else
+                        mkvMergeParams.AppendFormat(" --language 0:{0}", track.Language); ;
                     mkvMergeParams.AppendFormat(" --compression 0:none");
                     if (!track.Default)      //yes is the default value of this flag, there is no need to specify this case.
                         mkvMergeParams.Append(" --default-track 0:no");
@@ -358,6 +362,9 @@ namespace TranscodeFLACtoAAC
 
         private static string ReplaceFlacIndicator(String trackName)
         {
+            if (String.IsNullOrWhiteSpace(trackName))
+                return trackName;
+
             Int32 indexOfFlac = trackName.IndexOf("FLAC", StringComparison.OrdinalIgnoreCase);
             if (indexOfFlac > -1)
             {
