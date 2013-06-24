@@ -15,17 +15,12 @@ namespace TranscodeFLACtoAAC
         private static readonly String mkvInfoBaseParameters = ConfigurationManager.AppSettings["mkvInfoParameters"];
         private static readonly Int32 infoTimeOut = Int32.Parse(ConfigurationManager.AppSettings["mkvInfoTimeout"]);
 
-        private static readonly String pathToMkvExtract = ConfigurationManager.AppSettings["pathToMkvExtract"];
-        private static readonly String mkvExtractBaseParameters = ConfigurationManager.AppSettings["mkvExtractParameters"];
-        private static readonly Int32 extractTimeOut = Int32.Parse(ConfigurationManager.AppSettings["mkvExtractTimeout"]);
-
-        private static readonly String pathToFlacTool = ConfigurationManager.AppSettings["pathToFlac"];
-        private static readonly String flacBaseParameters = ConfigurationManager.AppSettings["flacParameters"];
-        private static readonly Int32 decodeTimeout = Int32.Parse(ConfigurationManager.AppSettings["flacTimeout"]);
+        private static readonly String pathToFFMpeg = ConfigurationManager.AppSettings["pathToFFMpeg"];
+        private static readonly String ffMpegBaseParameters = ConfigurationManager.AppSettings["ffMpegParameters"];
 
         private static readonly String pathToNeroAacEnc = ConfigurationManager.AppSettings["pathToNeroAacEnc"];
         private static readonly String neroAacEncBaseParameters = ConfigurationManager.AppSettings["neroAacEncParameters"];
-        private static readonly Int32 encodeTimeout = Int32.Parse(ConfigurationManager.AppSettings["neroAacEncTimeout"]);
+        private static readonly Int32 encodeTimeout = Int32.Parse(ConfigurationManager.AppSettings["transcodeTimeout"]);
 
         private static readonly String pathToMkvMerge = ConfigurationManager.AppSettings["pathToMkvMerge"];
         private static readonly Int32 mergeTimeout = Int32.Parse(ConfigurationManager.AppSettings["mkvMergeTimeout"]);
@@ -155,110 +150,44 @@ namespace TranscodeFLACtoAAC
             {
                 if (track.Codec == flacCodecID)
                 {
-                    Console.WriteLine("Extracting FLAC streams {0}(id:{1}) from {2}",
+                    Console.WriteLine("Transcoding FLAC streams {0}(id:{1}) from {2}",
                         track.Name, track.TrackNumber, mkvFile.VideoFile.FullName);
-                    FileInfo flacFile = new FileInfo(tempFolder.FullName + Path.DirectorySeparatorChar + 
-                        mkvFile.VideoFile.Name + '.' + track.MkvToolsTrackNumber + ".flac");
-                    String mkvExtractParameters = String.Format(mkvExtractBaseParameters, 
-                        mkvFile.VideoFile.FullName, flacFile.FullName, track.MkvToolsTrackNumber);
+                    FileInfo aacFile = new FileInfo(tempFolder.FullName + Path.DirectorySeparatorChar + 
+                        mkvFile.VideoFile.Name + '.' + track.MkvToolsTrackNumber + ".mp4");
+                    String ffmpegParameters =
+                        String.Format(ffMpegBaseParameters, mkvFile.VideoFile.FullName, track.MkvToolsTrackNumber);
+                    String neroAacParameters = String.Format(neroAacEncBaseParameters, aacFile.FullName);
 
-                    Console.WriteLine("mkvExtract Command:");
-                    Console.WriteLine(pathToMkvExtract + " " + mkvExtractParameters);
 
-                    Process mkvExtractProcess = StartExternalProcess(pathToMkvExtract, mkvExtractParameters);
-                    Console.WriteLine(mkvExtractProcess.StandardError.ReadToEnd());
-                    mkvExtractProcess.WaitForExit(extractTimeOut * 1000);
+                    String fullCommand = pathToFFMpeg + " " + ffmpegParameters + 
+                        " | " + pathToNeroAacEnc + " " + neroAacParameters;
+                        //We pipe the stream from ffmpeg directly into the neroAAC encoder.
+                    Console.WriteLine("ffmpeg to neroAAC Command:");
+                    Console.WriteLine(fullCommand);
 
-                    if (mkvExtractProcess.HasExited)
+                    Process transcodeProcess = StartExternalProcess("cmd", "/C \"" + fullCommand.Replace("\"", "\"\"") + "\"");
+                    Console.WriteLine(transcodeProcess.StandardError.ReadToEnd());
+                    transcodeProcess.WaitForExit(encodeTimeout * 1000);
+
+                    if (transcodeProcess.HasExited)
                     {
-                        if (mkvExtractProcess.ExitCode != 0 || !flacFile.Exists)
+                        if (transcodeProcess.ExitCode != 0 || !aacFile.Exists)
                         {
-                            Console.WriteLine("Error with mkvextract");
+                            Console.WriteLine("Error with transcoding");
                         }
                         else
                         {
-                            track.ExternalFileRef = EncodePcmToAAC(DecodeFlacToPCM(flacFile));
+                            track.ExternalFileRef = aacFile;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("MKV extract application took longer than {0} seconds.", extractTimeOut);
-                        mkvExtractProcess.Kill();
+                        Console.WriteLine("MKV transcode application took longer than {0} seconds.", encodeTimeout);
+                        transcodeProcess.Kill();
                     }
                 }
             }
-        }
-
-        private static FileInfo DecodeFlacToPCM(FileInfo flacFile)
-        {
-            FileInfo targetFile =
-                new FileInfo(flacFile.FullName.Substring(0, flacFile.FullName.Length - flacFile.Extension.Length) + ".wav");
-            //No need to use tempFolder here flacFile is already in the tempFolder.
-            Console.WriteLine("Decoding {0} to WAV/PCM {1}", flacFile.FullName, targetFile.FullName);            
-
-            String flacParameters = String.Format(flacBaseParameters, flacFile.FullName, targetFile.FullName);
-            Console.WriteLine("flac Command:");
-            Console.WriteLine(pathToFlacTool + " " + flacParameters);
-
-            Process flacDecodeProcess = StartExternalProcess(pathToFlacTool, flacParameters);
-            Console.WriteLine(flacDecodeProcess.StandardError.ReadToEnd());
-            flacDecodeProcess.WaitForExit(decodeTimeout * 1000);
-
-            if (flacDecodeProcess.HasExited)
-            {
-                if (flacDecodeProcess.ExitCode != 0 || !targetFile.Exists)
-                {
-                    Console.WriteLine("Error with flac tool");
-                }
-                else
-                {
-                    return targetFile;
-                }
-            }
-            else
-            {
-                Console.WriteLine("flac decode application took longer than {0} seconds.", decodeTimeout);
-                flacDecodeProcess.Kill();
-            }
-
-            throw new Exception("Could not decode FLAC");
-        }
-
-        private static FileInfo EncodePcmToAAC(FileInfo pcmFile)
-        {
-            FileInfo targetFile =
-                new FileInfo(pcmFile.FullName.Substring(0, pcmFile.FullName.Length - pcmFile.Extension.Length) + ".mp4");
-            //No need to use tempFolder here pcmFile is already in the tempFolder.
-            Console.WriteLine("Encoding {0} to AAC {1}", pcmFile.FullName, targetFile.FullName);
-
-            String neroAacEncParameters = String.Format(neroAacEncBaseParameters, pcmFile.FullName, targetFile.FullName);
-            Console.WriteLine("NeroAacEncode Command:");
-            Console.WriteLine(pathToNeroAacEnc + " " + neroAacEncParameters);
-
-            Process aacEncode = StartExternalProcess(pathToNeroAacEnc, neroAacEncParameters);
-            Console.WriteLine(aacEncode.StandardError.ReadToEnd());
-            aacEncode.WaitForExit(decodeTimeout * 1000);
-
-            if (aacEncode.HasExited)
-            {
-                if (aacEncode.ExitCode != 0 || !targetFile.Exists)
-                {
-                    Console.WriteLine("Error with neroAacEnc tool");
-                }
-                else
-                {
-                    pcmFile.Delete();
-                    return targetFile;
-                }
-            }
-            else
-            {
-                Console.WriteLine("AAC encode application took longer than {0} seconds.", encodeTimeout);
-                aacEncode.Kill();
-            }
-
-            throw new Exception("Could not encode AAC");
-        }
+        }        
 
         private static void RemuxFile(VideoFileInfo mkvFile, DirectoryInfo targetFolder)
         {
