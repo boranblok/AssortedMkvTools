@@ -6,6 +6,7 @@ using System.IO;
 using System.Diagnostics;
 using MKVInfoParser;
 using System.Configuration;
+using System.Reflection;
 
 namespace FlacFinder
 {
@@ -19,7 +20,7 @@ namespace FlacFinder
         private static readonly DirectoryInfo tempFolder = new DirectoryInfo(ConfigurationManager.AppSettings["TempFolder"]);
         static Int32 Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length < 1 || args.Length > 2)
             {
                 return ShowUsage();
             }
@@ -27,9 +28,27 @@ namespace FlacFinder
             if (!startDirectory.Exists)
             {
                 Console.WriteLine("The start folder does not exist.");
+                return ShowUsage();
             }
 
-            FindFlacFiles(startDirectory);
+            DirectoryInfo outputDirectory;
+
+            if (args.Length == 2)
+            {
+                outputDirectory = new DirectoryInfo(args[1]);
+            }
+            else
+            {
+                outputDirectory = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            }
+
+            if (!outputDirectory.Exists)
+            {
+                Console.WriteLine("The output folder does not exist.");
+                return ShowUsage();
+            }
+
+            FindFlacFiles(startDirectory, outputDirectory);
 
 #if DEBUG       //VS does not halt after execution in debug mode.
             Console.WriteLine("Finished");
@@ -39,9 +58,9 @@ namespace FlacFinder
             return 0;
         }
 
-        private static void FindFlacFiles(DirectoryInfo directory)
+        private static void FindFlacFiles(DirectoryInfo startDirectory, DirectoryInfo outputDirectory)
         {
-            List<VideoFileInfo> mkvFiles = GetAllVideoFileInfos(directory);
+            List<VideoFileInfo> mkvFiles = GetAllVideoFileInfos(startDirectory);
             var mkvFilesWithFlac = mkvFiles.Where(M => M.Tracks.Where(T => T.Codec == flacCodecID).Count() > 0);
             List<String> directories = new List<String>();
             foreach (VideoFileInfo mkvFileWithFlac in mkvFilesWithFlac)
@@ -51,12 +70,12 @@ namespace FlacFinder
             }
             directories.Sort();
             Console.WriteLine(String.Join("\r\n", directories));
-            WriteDirectoriesToFile(directories);
+            WriteDirectoriesToFile(directories, outputDirectory);
         }
 
-        private static void WriteDirectoriesToFile(List<String> directories)
+        private static void WriteDirectoriesToFile(List<String> directories, DirectoryInfo outputDirectory)
         {
-            FileInfo outputFile = new FileInfo(tempFolder.FullName + Path.DirectorySeparatorChar + "foldersWithFlac.txt");
+            FileInfo outputFile = new FileInfo(outputDirectory.FullName + Path.DirectorySeparatorChar + "foldersWithFlac.txt");
             using (TextWriter writer = new StreamWriter(outputFile.OpenWrite()))
             {
                 writer.WriteLine(String.Join("\r\n", directories));
@@ -127,7 +146,7 @@ namespace FlacFinder
         private static Int32 ShowUsage()
         {
             Console.WriteLine("FLAC Finder usage:");
-            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder]");
+            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder] {report output folder}");
             return 1;
         }
     }

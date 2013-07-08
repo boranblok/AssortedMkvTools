@@ -165,7 +165,7 @@ namespace TranscodeFLACtoAAC
                     Console.WriteLine("ffmpeg to neroAAC Command:");
                     Console.WriteLine(fullCommand);
 
-                    Process transcodeProcess = StartExternalProcess("cmd", "/C \"" + fullCommand.Replace("\"", "\"\"") + "\"");
+                    Process transcodeProcess = StartExternalProcess("cmd", "/C " + fullCommand);
                     Console.WriteLine(transcodeProcess.StandardError.ReadToEnd());
                     transcodeProcess.WaitForExit(encodeTimeout * 1000);
 

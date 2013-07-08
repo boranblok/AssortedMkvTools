@@ -15,7 +15,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{6EAE0D3B-F23D-4865-9BED-9138D5C37669}"
 	ProjectSection(SolutionItems) = preProject
 		Releases\v0.0.0.1.zip = Releases\v0.0.0.1.zip
+		Releases\v0.0.0.2.zip = Releases\v0.0.0.2.zip
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacFinder", "FlacFinder\FlacFinder.csproj", "{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +60,16 @@ Global
 		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D56F18A6-8D2C-42F0-825D-76B1F0D795F0}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Debug|x86.ActiveCfg = Debug|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Debug|x86.Build.0 = Debug|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|Any CPU.ActiveCfg = Release|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|x86.ActiveCfg = Release|x86
+		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
