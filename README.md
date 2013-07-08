@@ -6,7 +6,7 @@ A simple C# app/script that transcodes all FLAC audio tracks in an MKV file to A
 This is done utilizing the following third party tools:
 
 * [MKVToolnix](http://www.bunkus.org/videotools/mkvtoolnix/) (mkvInfo, mkvExtract, mkvMerge)
-* [The official FLAC tools](http://flac.sourceforge.net/download.html)
+* [ffmpeg](http://www.ffmpeg.org/)
 * [Nero AAC Encoder](http://www.nero.com/enu/company/about-nero/nero-aac-codec.php)
 
 However due to the nature of the configuration different encoders/decoders could be used.
@@ -26,10 +26,8 @@ This script performs the following tasks:
 
 1. Scans a folder for mkv files
 2. Detects which mkv files have FLAC encoded audio tracks in them
-3. It extracts each FLAC aduio stream
-4. The FLAC stream gets decoded to WAV/PCM
-5. The WAV/PCM is encoded as AAC
-6. A new mkv file is constructed based upon the original mkv file but with the FLAC audio streams replaced by AAC encoded streams
+3. It extracts each FLAC audio stream and pipes it as WAV/PCM into nero AAC encoder which encodes it as AAC
+4. A new mkv file is constructed based upon the original mkv file but with the FLAC audio streams replaced by AAC encoded streams
 
 Take note that the Segment UID is transferred over to the new mkv file as well, this is to maintain external chapter support.
 
@@ -37,11 +35,11 @@ Take note that the Segment UID is transferred over to the new mkv file as well, 
 How is this script used
 -----------------------
 
-Before you can use this script you need to modify the TranscodeFLACtoAAC.exe.config file to point to the correct location of the required external tools. In the config you can also modify the commandline arguments passed to these external tools. (For instance to change the AAC target quality) The only exception to this is mkvMerge which is a bit too complex to put into configuration.
+Before you can use this script you need to modify the *TranscodeFLACtoAAC.exe.config* file to point to the correct location of the required external tools. In the config you can also modify the commandline arguments passed to these external tools. (For instance to change the AAC target quality) The only exception to this is mkvMerge which is a bit too complex to put into configuration.
 
 TranscodeFLACtoAAC.exe [source folder] [target folder]
 
-The two folders have to be different because original file names are preserved.
+The two folders have to be different because original files are preserved.
 
 
 How is this script compiled
@@ -58,10 +56,20 @@ I need to test much more with exotic situations (forced tracks etc)
 I would also like to get all console output streamed to the application console, but I am too stuipid ATM to figure this out and I settled for the error output for now.
 
 
-Known weak points/possible improvements later
----------------------------------------------
+FlacFinder
+==========
 
-due to the taken path (export FLAC -> WAV/PCM -> AAC) a lot of I/O is done, this is unavoidable with the current tools available.
-PopCorn is faster because eac3to does an in memory transcode from FLAC inside the mkv file to AC3 which skips a lot of disk operations.
+What exactly does this script do
+--------------------------------
 
-For best performance TEMP should be placed on a ramdisk or SSD.
+This script recursively searches a folder and all its subfolders for mkv files that contain audio streams with the FLAC codec.
+The found files are listed into a textfile (for possible input into the MkvFlacToAac tool)
+
+How is this script used
+-----------------------
+
+Before you can use this script you need to modify the *FlacFinder.exe.config* file to point to the correct location of the required external tools.
+
+FlacFinder.exe [start folder] {output folder}
+
+If the output folder is not specified the resulting textfile will be written to the exe location (This **will** give problems in UAC protected folders)
