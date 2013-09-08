@@ -37,7 +37,9 @@ How is this script used
 
 Before you can use this script you need to modify the *TranscodeFLACtoAAC.exe.config* file to point to the correct location of the required external tools. In the config you can also modify the commandline arguments passed to these external tools. (For instance to change the AAC target quality) The only exception to this is mkvMerge which is a bit too complex to put into configuration.
 
-TranscodeFLACtoAAC.exe [source folder] [target folder]
+Once the configuration is completed you can run the utility with the command:
+
+    TranscodeFLACtoAAC.exe [source folder] [target folder]
 
 The two folders have to be different because original files are preserved.
 
@@ -70,6 +72,8 @@ How is this script used
 
 Before you can use this script you need to modify the *FlacFinder.exe.config* file to point to the correct location of the required external tools.
 
-FlacFinder.exe [start folder] {output folder}
+Once the configuration is completed you can run the utility with the command:
+
+    FlacFinder.exe [start folder] {output folder}
 
 If the output folder is not specified the resulting textfile will be written to the exe location (This **will** give problems in UAC protected folders)
