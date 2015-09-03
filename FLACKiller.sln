@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseMKVInfo", "ParseMKVInfo\ParseMKVInfo.csproj", "{75231162-4F41-4256-92EC-B997AAFD2C55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranscodeFLACtoAAC", "TranscodeFLACToAAC\TranscodeFLACtoAAC.csproj", "{FECC6EC5-B9C4-4341-AD90-167968EE3162}"
@@ -16,9 +18,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{6E
 	ProjectSection(SolutionItems) = preProject
 		Releases\v0.0.0.1.zip = Releases\v0.0.0.1.zip
 		Releases\v0.0.0.2.zip = Releases\v0.0.0.2.zip
+		Releases\v0.0.0.3.zip = Releases\v0.0.0.3.zip
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlacFinder", "FlacFinder\FlacFinder.csproj", "{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultTrackMover", "DefaultTrackMover\DefaultTrackMover.csproj", "{EFE107A7-7B23-4050-8E83-AFDA38624F86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +75,16 @@ Global
 		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|x86.ActiveCfg = Release|x86
 		{B4B048FB-D5DB-4EE7-889C-B37E23E4420E}.Release|x86.Build.0 = Release|x86
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EFE107A7-7B23-4050-8E83-AFDA38624F86}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
