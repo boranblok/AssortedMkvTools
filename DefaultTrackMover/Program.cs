@@ -24,7 +24,7 @@ namespace DefaultTrackMover
 
         static Int32 Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length < 1 || args.Length > 2)
             {
                 return ShowUsage();
             }
@@ -36,7 +36,13 @@ namespace DefaultTrackMover
                 return ShowUsage();
             }
 
-            MoveDefaultTracks(startDirectory);
+            Boolean doMove = false;
+            if(args.Length == 2)
+            {
+                doMove = "DoMove".Equals(args[1], StringComparison.InvariantCultureIgnoreCase);
+            }
+
+            MoveDefaultTracks(startDirectory, doMove);
 
 #if DEBUG       //VS does not halt after execution in debug mode.
             Console.WriteLine("Finished");
@@ -46,7 +52,7 @@ namespace DefaultTrackMover
             return 0;
         }
 
-        private static void MoveDefaultTracks(DirectoryInfo startDirectory)
+        private static void MoveDefaultTracks(DirectoryInfo startDirectory, Boolean doMove)
         {
             List<VideoFileInfo> mkvFiles = GetAllVideoFileInfos(startDirectory);            
             List<VideoFileInfo> defaultNotFirst = new List<VideoFileInfo>();
@@ -109,6 +115,16 @@ namespace DefaultTrackMover
                 japaneseSubs.ToList().ForEach(f => writer.WriteLine(f.VideoFile.FullName));
             }
 
+            if (doMove)
+            {
+                MoveDefaulttrackToFront(defaultNotFirst);
+            }
+
+            //Construct: mkvmerge.exe -o C:\\temp\\Initial.D.s01e01.Ultimate.Tofu.Guy.Drift.DVD-a-s.rem.mkv C:\\temp\\Initial.D.s01e01.Ultimate.Tofu.Guy.Drift.DVD-a-s.mkv --track-order 0:0,0:2,0:1,0:4,0:3
+        }
+
+        private static void MoveDefaulttrackToFront(List<VideoFileInfo> defaultNotFirst)
+        {
             foreach (var videoFile in defaultNotFirst)
             {
                 String trackOrderParam = ConstructTrackOrder(videoFile);
@@ -146,9 +162,7 @@ namespace DefaultTrackMover
                         mergeTimeout, videoFile.VideoFile.FullName);
                     mkvMergeProcess.Kill();
                 }
-            }            
-
-            //Construct: mkvmerge.exe -o C:\\temp\\Initial.D.s01e01.Ultimate.Tofu.Guy.Drift.DVD-a-s.rem.mkv C:\\temp\\Initial.D.s01e01.Ultimate.Tofu.Guy.Drift.DVD-a-s.mkv --track-order 0:0,0:2,0:1,0:4,0:3
+            }
         }
 
         private static String ConstructTrackOrder(VideoFileInfo videoFile)
@@ -256,7 +270,7 @@ namespace DefaultTrackMover
         private static Int32 ShowUsage()
         {
             Console.WriteLine("Default Track mover usage:");
-            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder]");
+            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder] <DoMove>");
             return 1;
         }
     }
