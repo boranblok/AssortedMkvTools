@@ -77,3 +77,31 @@ Once the configuration is completed you can run the utility with the command:
     FlacFinder.exe [start folder] {output folder}
 
 If the output folder is not specified the resulting textfile will be written to the exe location (This **will** give problems in UAC protected folders)
+
+
+DefaultTrackMover
+=================
+
+What exactly does this script do
+--------------------------------
+
+This script recursively searches a folder and all its subfolders for mkv files wherethe default track isnot the first track of its kind. Optionally it also modifies these files and moves the default track to be the first of its kind.
+
+How is this script used
+-----------------------
+
+Before you can use this script you need to modify the *DefaultTrackMover.exe.config* file to point to the correct location of the required external tools.
+
+Once the configuration is completed you can run the utility with the command:
+
+    DefaultTrackMover.exe [start folder] {DoMove}
+
+DoMove is literally the text *DoMove* if this is not specified no files will be modified and only the information lists will be generated.
+
+Three information lists are generated in the configured TempFolder:
+
+* **defaultTracksNotFirst.txt** A list of files where the default track is not the first of its kind
+* **japaneseAudioNotdefault.txt** A list of tracks containing japanese audio, but this is not marked as a default track
+* **japaneseSubs.txt** A list of tracks with subtitles marked as japanese.
+    
+These three lists give insight into common issues when trying to play back Anime files on Plex. Subs marked as Japanese are often English, but intended for use with Japanese audio.
