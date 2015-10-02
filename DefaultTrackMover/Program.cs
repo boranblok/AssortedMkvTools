@@ -270,7 +270,7 @@ namespace DefaultTrackMover
         private static Int32 ShowUsage()
         {
             Console.WriteLine("Default Track mover usage:");
-            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder] <DoMove>");
+            Console.WriteLine(AppDomain.CurrentDomain.FriendlyName + " [start folder] {DoMove}");
             return 1;
         }
     }
